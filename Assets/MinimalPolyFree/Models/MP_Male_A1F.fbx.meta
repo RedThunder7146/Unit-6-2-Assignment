@@ -1,14 +1,7 @@
 fileFormatVersion: 2
 guid: b28b101e00dd64e90b7a537a233bedd8
-AssetOrigin:
-  serializedVersion: 1
-  productId: 308063
-  packageName: Minimal Poly Free
-  packageVersion: 1.0.0
-  assetPath: Assets/MinimalPolyFree/Models/MP_Male_A1F.fbx
-  uploadId: 729075
 ModelImporter:
-  serializedVersion: 24200
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -63,9 +56,6 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
-    generateMeshLods: 0
-    meshLodGenerationFlags: 0
-    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -891,3 +881,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 308063
+  packageName: Minimal Poly Free
+  packageVersion: 1.0.0
+  assetPath: Assets/MinimalPolyFree/Models/MP_Male_A1F.fbx
+  uploadId: 729075
