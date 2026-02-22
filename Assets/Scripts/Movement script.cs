@@ -23,9 +23,8 @@ public class Movementscript : MonoBehaviour
     InputAction lookAction;
 
 
-    [Header("Input")]
-    public float moveInput;
-    public float turnInput;
+
+
 
     private void Start()
     {
@@ -50,11 +49,19 @@ public class Movementscript : MonoBehaviour
     {
 
         Vector3 moveValue = moveAction.ReadValue<Vector3>();
-        Vector3 move = new Vector3(turnInput, 0, moveInput);
+        moveValue = transform.TransformDirection(moveValue);
 
 
         moveValue.y = VerticalForceCalculation();
 
+        if ((moveValue.x != 0) || (moveValue.z != 0))
+        {
+            anim.SetBool("IsWalking", true);
+        }
+        else
+        {
+            anim.SetBool("IsWalking", false);
+        }
 
 
 
@@ -63,13 +70,16 @@ public class Movementscript : MonoBehaviour
 
     private void Turn()
     {
+        if (moveAction != null)
+        {
+            Vector2 currentLookDirection = cam.forward;
+            currentLookDirection.y = 0;
+
+            Quaternion targetRotation = Quaternion.LookRotation(currentLookDirection);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turningSpeed);
+        }
         
-        Vector2 currentLookDirection = lookAction.ReadValue<Vector2>();
-        currentLookDirection.y = 0;
-
-        Quaternion targetRotation = Quaternion.LookRotation(currentLookDirection);
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turningSpeed);
         
         
     }
@@ -79,7 +89,6 @@ public class Movementscript : MonoBehaviour
         if(characterController.isGrounded)
         {
 
-            print("Is grounded");
             verticalVelocity = -1f;
 
             if (jumpAction.IsPressed())
