@@ -1,13 +1,17 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+
 
 public class PickupScript : MonoBehaviour
 {
     InputAction pickupAction;
     [SerializeField] private Transform raycastSpawner;
+    [SerializeField] private Transform objectGrabPointTransform;
     [SerializeField] private LayerMask objectLayerMask;
+    private ObjectGrabbable objectGrabbable;
+    
+    public float pickUpDistance;
     private void Start()
     {
         pickupAction = InputSystem.actions.FindAction("Interact");
@@ -17,13 +21,27 @@ public class PickupScript : MonoBehaviour
 
     private void Update()
     {
-        if (pickupAction.triggered)
-        {
-            float pickUpDistance = 2f;
-            if (Physics.Raycast(raycastSpawner.position, raycastSpawner.forward, out RaycastHit raycasthit, pickUpDistance, objectLayerMask))
+        if (Input.GetKeyDown(KeyCode.E))
+        { 
+           if (objectGrabbable == null)
             {
-                print("Hit");
+                if (Physics.Raycast(raycastSpawner.position, raycastSpawner.forward, out RaycastHit raycasthit, pickUpDistance, objectLayerMask))
+                {
+                    print(raycasthit.transform);
+                    if (raycasthit.transform.TryGetComponent(out objectGrabbable))
+                    {
+                        objectGrabbable.Grab(objectGrabPointTransform);
+                    }
+
+                }
             }
+            
+            else
+            {
+                objectGrabbable.Drop();
+                objectGrabbable = null;
+            }
+                
         }
     }
 }

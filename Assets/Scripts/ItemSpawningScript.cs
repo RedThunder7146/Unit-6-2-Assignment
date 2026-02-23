@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class ItemSpawningScript : MonoBehaviour
 {
@@ -24,9 +24,10 @@ public class ItemSpawningScript : MonoBehaviour
         Vector3 itemPosition = spawner.position;
 
         int item = Random.Range(0, items.Length);
-
+        GameObject rnditem = items[item];
         if (willSpawn == true)
-            Instantiate(items[item], transform.position,transform.rotation);
+            Instantiate(rnditem, transform.position,transform.rotation);
+        rnditem.AddComponent<Explosion>();
 
     }
 

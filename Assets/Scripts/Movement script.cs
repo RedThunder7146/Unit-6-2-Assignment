@@ -70,9 +70,12 @@ public class Movementscript : MonoBehaviour
 
     private void Turn()
     {
-        if (moveAction != null)
+        Vector3 moveVal = moveAction.ReadValue<Vector3>();
+        moveVal.y = 0;
+
+        if (moveVal.x != 0 || moveVal.z != 0)
         {
-            Vector2 currentLookDirection = cam.forward;
+            Vector3 currentLookDirection = cam.forward;
             currentLookDirection.y = 0;
 
             Quaternion targetRotation = Quaternion.LookRotation(currentLookDirection);
@@ -94,12 +97,18 @@ public class Movementscript : MonoBehaviour
             if (jumpAction.IsPressed())
             {
                 verticalVelocity = MathF.Sqrt(jumpHeight * gravity * 2);
-            }
+
+                anim.SetBool("IsJumping", true);
+                }
+
+            else
+                anim.SetBool("IsJumping", false);
         }
 
         else
         {
             verticalVelocity -= gravity * Time.deltaTime;
+
         }
         return verticalVelocity;
     }

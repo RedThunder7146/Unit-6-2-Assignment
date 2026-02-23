@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class Explosion : MonoBehaviour
 {
@@ -10,7 +8,7 @@ public class Explosion : MonoBehaviour
 
 
 
-    public float value = 1000;
+    public float value;
     public float cubeSize = 0.2f;
     public int cubesInRow = 5;
     public Rigidbody rb;
@@ -30,13 +28,13 @@ public class Explosion : MonoBehaviour
         cubesPivotDiastance = cubeSize * cubesInRow / 2;
 
         cubesPivot = new Vector3(cubesPivotDiastance, cubesPivotDiastance, cubesPivotDiastance);
-
+        value = Random.Range(750, 1250);
     }
 
 
     void Update() 
     {
-
+        
 
         if (value <= 0)
         {
